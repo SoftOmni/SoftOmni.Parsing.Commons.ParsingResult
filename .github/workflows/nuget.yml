@@ -14,7 +14,7 @@ run-name: Publish to NuGet if necessary
 jobs:
   publish:
     if: github.event.workflow_run.conclusion == 'success'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 15
     steps:
       - name: Checkout repository
