@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   generate-matrix:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       highest: ${{ steps.set-matrix.outputs.highest }}
@@ -26,7 +26,7 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-matrix.sh"
 
   generate-test-matrix:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     needs: generate-matrix
     outputs:
       matrix: ${{ needs.generate-matrix.outputs.matrix }}
@@ -52,7 +52,7 @@ jobs:
   
   test:
     needs: [ generate-test-matrix ]
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     strategy:
       matrix:
         include: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
@@ -148,7 +148,7 @@ jobs:
 
   upload:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout
         uses: actions/checkout@v4
